@@ -9,12 +9,12 @@ namespace Extending06
         static void Main(string[] args)
         {
 
-            //new Program().UsingReflection();
+            new Program().UsingReflection();
             //new Program().UsingExtendingList();
             //new Program().UsingCustomException(true);
             //new UsingDateTime().UsingDateTimes();
             //new UsingDateTime().UsingDateTimeTwo();
-            new Program().UsingExtensionMethod();
+            //new Program().UsingExtensionMethod();
         }
 
         public void UsingReflection()

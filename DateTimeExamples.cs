@@ -21,11 +21,11 @@ namespace Extending06
             ForegroundColor = (ConsoleColor)currentForegroundColor;
             WriteLine($"ToLongDateString:{myValue.ToLongDateString()}" +
                 $"\nToLongTimeString:{myValue.ToLongTimeString()}");
-            WriteLine($"AddDays:{myValue.AddDays(3).ToLongTimeString()}" +
+            WriteLine($"AddDays:{myValue.AddDays(3).ToLongDateString()}" +
                 $"\nAddHours:{myValue.AddHours(3)}-");
             ForegroundColor = White;
             WriteLine($"Month:{myValue.Month}");
-            DateTime myBirthday = new DateTime(1988, 12, 31);
+            DateTime myBirthday = new DateTime(day:31,month:12,year:1968);
             WriteLine(myBirthday.ToShortDateString());
             //Format of DateTime.Parse("dia/mes/año");
             try
@@ -45,9 +45,12 @@ namespace Extending06
             DateTime parsedDated = DateTime.Parse(dateInput);
             WriteLine("{0}", parsedDated);
             CultureInfo myCultureInfo = new CultureInfo("es-ES");
-            string mySpanishDate = "21 Diciembre 2018";
-            DateTime myDateTime = DateTime.Parse(mySpanishDate, myCultureInfo);
-            WriteLine("{0}", myDateTime.ToShortDateString());
+            Thread.CurrentThread.CurrentCulture = myCultureInfo;  // HEmos de cambiar el Thread para que a partir de ahora 
+                                                                  // cambie la cultura
+            string mySpanishDate = "23 octubre 2020";
+            DateTime myDateTimeSpanish = DateTime.Parse(mySpanishDate, myCultureInfo);
+            WriteLine("Fecha corta:{0}", myDateTimeSpanish.ToShortDateString());
+            WriteLine("Fecha larga:{0}", myDateTimeSpanish.ToLongDateString());
             ForegroundColor = (ConsoleColor)currentForegroundColor;
         }
 
@@ -71,10 +74,10 @@ namespace Extending06
             WriteLine($"AddDays:{myValue.AddDays(3).ToLongTimeString()}" +
                 $"\nAddHours:{myValue.AddHours(3)}-");
             WriteLine($"Month:{myValue.Month}");
-            DateTime myBirthday = new DateTime(day: 31, year: 1988, month: 12);
+            DateTime myBirthday = new DateTime(day: 31, year: 1968, month: 12);
             WriteLine(myBirthday.ToShortDateString());
             //Format of DateTime.Parse("dia/mes/año");
-            string fechaNacimiento = "31/12/1988";
+            string fechaNacimiento = "31/12/1968";
             if (DateTime.TryParse(fechaNacimiento, out myBirthday))
             {
                 ForegroundColor = DarkGreen;
@@ -95,14 +98,14 @@ namespace Extending06
             //Establece la cultura de tratamiento de fecha de España
             CultureInfo myCultureInfo = new CultureInfo("es-ES");
             Thread.CurrentThread.CurrentCulture = myCultureInfo;
-            string mySpanishDate = "21 Diciembre 2018";
+            string mySpanishDate = "23 Octubre 2020";
             DateTime myDateTime = DateTime.Parse(mySpanishDate, myCultureInfo);
             WriteLine("La fecha en cultura española:{0}", myDateTime.ToShortDateString());
             WriteLine("La fecha en cultura española:{0}", myDateTime.ToLongDateString());
             //Establece la cultura de tratamiento de fecha de Inglaterra
             myCultureInfo = new CultureInfo("en-UK");
             Thread.CurrentThread.CurrentCulture = myCultureInfo;
-            string myBritishDate = "4/23/2018";
+            string myBritishDate = "10/23/2020";
             myDateTime = DateTime.Parse(myBritishDate, myCultureInfo);
             WriteLine("La fecha en cultura inglesa:{0}", myDateTime.ToShortDateString());
             WriteLine("La fecha en cultura inglesa:{0}", myDateTime.ToLongDateString());
@@ -113,8 +116,8 @@ namespace Extending06
             Write($"Pasamos el valor asi: año ({anyo}), mes ({mes})");
             Write($", dia({dia}), hora ({hora}), minuto ({minuto}), ");
             WriteLine($"segundo ({segundo})");
-            //ListaDeCulturas(ValorFecha);
-            FechaEnDiferentesCulturas(ValorFecha);
+            ListaDeCulturas(ValorFecha);
+            //FechaEnDiferentesCulturas(ValorFecha);
             ForegroundColor = (ConsoleColor)currentForegroundColor;
         }
 
@@ -173,7 +176,7 @@ namespace Extending06
             WriteLine("Formato de Fechas en las diferentes culturas");
             foreach (CultureInfo culture in cultures)
             {
-                 try
+                try
                 {
                     Thread.CurrentThread.CurrentCulture = culture;
                     DateTime DatesInSomeCultures = DateTime.Parse("01/01/2020", culture);
